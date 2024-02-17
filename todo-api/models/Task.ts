@@ -8,7 +8,7 @@ const TaskSchema = new Schema({
         ref: 'User',
         validate: {
             validator: async (value: Types.ObjectId) => {
-                const user = await User.findById(value);
+                const user = await User.findById(value, 'username');
                 return Boolean(user);
             },
             message: 'Пользователь не найден!',
@@ -23,7 +23,7 @@ const TaskSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ["new" || "in_progress" || "complete"],
+        enum: ["new", "in_progress", "complete"],
         default: "new"
     }
 

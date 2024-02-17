@@ -1,14 +1,13 @@
-import { Response, NextFunction} from "express";
+import { Request, Response, NextFunction} from "express";
 import {HydratedDocument} from "mongoose";
 import {UserFields} from "../types";
 import User from "../models/User";
 
 export interface RequestWithUser extends Request{
-    user: HydratedDocument<UserFields>;
+    user?: HydratedDocument<UserFields>;
 }
 const auth = async (req: RequestWithUser, res: Response, next: NextFunction ) => {
-    const headerValue = 'mmmmmmm mmmmm'  ;
-    // req.get('Authorization');
+    const headerValue =  req.get('Authorization');
     if(!headerValue){
         return res.status(401).send({error: 'No authorization header present'})
     }
