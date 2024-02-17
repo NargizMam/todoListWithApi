@@ -7,8 +7,10 @@ import { TaskApi, TaskMutation } from '../types';
 const tasksRouter = express.Router();
 
 tasksRouter.get('/', auth, async (req: RequestWithUser, res, next) => {
+  const userId = req.user?._id;
+  console.log(userId)
   try {
-    const tasksList = await Task.find();
+    const tasksList = await Task.find({user: userId});
     res.send(tasksList);
   } catch (e) {
     next(e);
