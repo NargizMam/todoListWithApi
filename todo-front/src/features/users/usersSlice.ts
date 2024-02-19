@@ -7,7 +7,7 @@ interface UsersState{
     fetchLoading: boolean
 }
 const initialState: UsersState = {
-    tokenApi: null,
+    tokenApi: localStorage.getItem('token') || null,
     fetchLoading: false
 }
 export const usersSlice = createSlice({

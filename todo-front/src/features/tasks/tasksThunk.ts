@@ -6,6 +6,7 @@ export const fetchTasks = createAsyncThunk<TaskApi[]>(
     'tasks/fetchTasks',
     async  ()=> {
         const response = await axiosApi.get<TaskApi[]>('/tasks');
+        console.log(response.data)
         return response.data;
     });
 
@@ -20,11 +21,11 @@ export const createTask = createAsyncThunk(
     }
 });
 
-export const editTask = createAsyncThunk<TaskApi, TaskMutation>(
+export const editTask = createAsyncThunk<null, {taskId: string, taskData:TaskMutation}>(
     'tasks/editTask',
-    async ( thunkAPI) => {
+    async ( {taskId, taskData},thunkAPI) => {
         try {
-            const response = await axiosApi.put(`/tasks/`);
+            const response = await axiosApi.put(`/tasks/${taskId}`, taskData);
             return response.data;
         } catch (error) {
             return thunkAPI;

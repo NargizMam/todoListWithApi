@@ -12,7 +12,7 @@ export interface User {
 export interface TaskMutation {
     title: string;
     description: string;
-    status:  'new' | 'in_progress' | 'complete';
+    status:  string;
 }
 export interface TaskApi extends TaskMutation{
     id: string;

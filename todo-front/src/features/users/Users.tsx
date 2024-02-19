@@ -4,13 +4,16 @@ import './components/UsersForm.scss';
 import {User} from "../../types";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {usersLogin, usersRegister} from "./usersThunk.ts";
+import {useNavigate} from "react-router-dom";
 
 const Users = () => {
     const dispatch = useAppDispatch();
+    const navigation = useNavigate();
     const [showForm, setShowForm] = useState(false);
     const createdUser = async (user: User) => {
         try {
            await dispatch(usersRegister(user));
+            navigation('/tasks/new');
         } catch (e) {
             throw(e);
         }
@@ -18,9 +21,10 @@ const Users = () => {
     const loginUser = async (user: User) => {
         try{
            await dispatch(usersLogin(user));
-
         }catch (e) {
             throw(e);
+        }finally {
+            navigation('/tasks');
         }
     }
     return (
@@ -28,8 +32,8 @@ const Users = () => {
             <div className="form-element form-submit">
                 <button onClick={() => setShowForm(false)} className="signup">Sign up</button>
                 <button onClick={() => setShowForm(true)} className="signup ">Log In</button>
-            </div>        <div className="formsDiv">
-
+            </div>
+            <div className="formsDiv">
             <div id="back">
                 <canvas id="canvas" className="canvas-back"></canvas>
                 {!showForm ? <div className="backRight">

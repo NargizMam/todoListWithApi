@@ -4,7 +4,7 @@ import User from '../models/User';
 
 const usersRouter = express.Router();
 
-usersRouter.get('/', async (req, res, next) => {
+usersRouter.get('/', async (_req, res, next) => {
   try{
     const user = await User.find();
     res.send(user);
@@ -14,7 +14,6 @@ usersRouter.get('/', async (req, res, next) => {
 
 })
 usersRouter.post('/', async (req, res, next) => {
-  console.log('create', req.body)
   try {
     const user = new User({
       username: req.body.username,
@@ -22,7 +21,7 @@ usersRouter.post('/', async (req, res, next) => {
     });
     user.generateToken();
     await user.save();
-    return res.send(user);
+    return res.send(user.token);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(422).send(e);
@@ -31,7 +30,6 @@ usersRouter.post('/', async (req, res, next) => {
   }
 });
 usersRouter.get('/sessions', async (req, res, next) => {
-  console.log('session', req.body)
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {

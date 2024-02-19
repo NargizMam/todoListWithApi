@@ -16,6 +16,11 @@ const AppToolbar = () => {
         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
           <Link to="/">Todo list</Link>
         </Typography>
+        <nav>
+          <button> <a href="/tasks">Tasks</a></button>
+          <button><a href="/users">User </a></button>
+
+        </nav>
       </Toolbar>
     </AppBar>
   )

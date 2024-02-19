@@ -9,8 +9,8 @@ export const usersRegister = createAsyncThunk<null, User>(
     'users/register',
     async (user) => {
         const usersResponse = await axiosApi.post('/users', user);
-        console.log(usersResponse.data.token);
-        return usersResponse.data.token;
+        localStorage.setItem('token', usersResponse.data);
+        return usersResponse.data;
     }
 );
 export const usersLogin = createAsyncThunk<null, User>(
@@ -25,8 +25,8 @@ export const usersLogin = createAsyncThunk<null, User>(
                 return config;
             });
             const usersResponse = await axiosApi.get('/users/sessions', user as AxiosRequestConfig);
-            console.log(usersResponse.data.token);
-            return usersResponse.data.token; 
+            localStorage.setItem('token', usersResponse.data);
+            return usersResponse.data;
         }catch (e) {
             return thunkAPI.rejectWithValue(error)
         }
