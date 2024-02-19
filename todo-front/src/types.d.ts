@@ -7,13 +7,12 @@ export interface RegisterUser {
 export interface User {
     username: string;
     password: string;
-};
+}
 
 export interface TaskMutation {
     title: string;
     description: string;
     status:  'new' | 'in_progress' | 'complete';
-
 }
 export interface TaskApi extends TaskMutation{
     id: string;

@@ -63,7 +63,6 @@ $error: #d9534f;
     width: 200%;
     height: 100%;
     position: relative;
-    left: 0;
     left: -100%;
 }
 
@@ -180,12 +179,12 @@ input {
 .checkbox:focus, .checkbox:checked:focus,
 .checkbox:active, .checkbox:checked:active {
     border-color: $theme-signup;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .checkbox:checked {
     outline: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
 }
 
 .checkbox:checked:after {

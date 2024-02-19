@@ -5,8 +5,13 @@ import User from '../models/User';
 const usersRouter = express.Router();
 
 usersRouter.get('/', async (req, res, next) => {
-  const user = await User.find();
-  res.send(user);
+  try{
+    const user = await User.find();
+    res.send(user);
+  }catch (e) {
+    next(e);
+  }
+
 })
 usersRouter.post('/', async (req, res, next) => {
   console.log('create', req.body)

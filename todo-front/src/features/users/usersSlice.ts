@@ -40,5 +40,5 @@ export const usersSlice = createSlice({
 
 export const usersReducer = usersSlice.reducer;
 
-export const token = (state: RootState) => state.users.tokenApi;
+export const selectToken = (state: RootState) => state.users.tokenApi;
 export const isLoading = (state: RootState) => state.users.fetchLoading;
