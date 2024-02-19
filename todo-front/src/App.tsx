@@ -18,6 +18,7 @@ const App = () => (
                 <Route path="/users"  element={<Users/>} />
                 <Route path="/tasks" element={<Tasks/>} />
                 <Route path="/tasks/new" element={<TaskForm />} />
+                <Route path="/tasks/edit/:id" element={<TaskForm />} />
                 <Route path="*" element={<h1>Not found</h1>} />
             </Routes>
         </Container>

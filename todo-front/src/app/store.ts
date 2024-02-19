@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {usersReducer} from "../features/users/usersSlice.ts";
-import {} from "../features/tasks/tasksThunk.ts";
 import {tasksReducer} from "../features/tasks/TasksSlice.ts";
 
 export const store = configureStore({

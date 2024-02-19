@@ -25,7 +25,7 @@ const TaskItem: React.FC<Props> = ({task}) => {
                 </Typography>
             </CardContent>
             <Button>
-                <NavLink to='/tasks/new'>Edit</NavLink>
+                <NavLink to={`/tasks/edit/${task.id}`}>Edit</NavLink>
             </Button>
         </Card>
     )
