@@ -29,7 +29,7 @@ tasksRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
     };
     const createTask = new Task(newTask);
     await createTask.save();
-    return res.send('Task was created!');
+    return res.send('Tasks was created!');
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
@@ -45,7 +45,7 @@ tasksRouter.put('/:id', auth, async (req: RequestWithUser, res, next) => {
     const userId = req.user?._id;
     if (!userId) return res.status(401).send({ error: 'No user!' });
     const updatedTask = await Task.findById<TaskApi>(taskId);
-    if (!updatedTask) return res.status(404).send({ error: 'Task not found!' });
+    if (!updatedTask) return res.status(404).send({ error: 'Tasks not found!' });
     if (updatedTask.user.toString() !== userId.toString()) {
       return res.status(403).send({ error: "You don't have permission!" });
     }
@@ -53,12 +53,10 @@ tasksRouter.put('/:id', auth, async (req: RequestWithUser, res, next) => {
       ...updatedTask,
       title,
       description,
-      status,
-      user: userId,
+      status
     };
-    const newTask = new Task(updatingTask);
-    await newTask.save();
-    return res.send(newTask);
+    await Task.updateOne({_id: req.params.id}, {$set: updatingTask});
+    return res.send(updatingTask);
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
       return res.status(400).send(e);
@@ -73,12 +71,12 @@ tasksRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
     const userId = req.user?._id;
     if (!userId) return res.status(401).send({ error: 'No user!' });
     const deletedTask = await Task.findById(taskId);
-    if (!deletedTask) return res.status(404).send({ error: 'Task not found!' });
+    if (!deletedTask) return res.status(404).send({ error: 'Tasks not found!' });
     if (deletedTask.user.toString() !== userId.toString()) {
       return res.status(403).send({ error: "You don't have permission!" });
     }
     await deletedTask.deleteOne();
-    return res.send('Task was deleted!');
+    return res.send('Tasks was deleted!');
   } catch (e) {
     next(e);
   }

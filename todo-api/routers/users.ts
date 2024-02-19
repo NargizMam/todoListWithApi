@@ -9,6 +9,7 @@ usersRouter.get('/', async (req, res, next) => {
   res.send(user);
 })
 usersRouter.post('/', async (req, res, next) => {
+  console.log('create', req.body)
   try {
     const user = new User({
       username: req.body.username,
@@ -25,6 +26,7 @@ usersRouter.post('/', async (req, res, next) => {
   }
 });
 usersRouter.get('/sessions', async (req, res, next) => {
+  console.log('session', req.body)
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
