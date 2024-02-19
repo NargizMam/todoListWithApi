@@ -6,7 +6,6 @@ export const fetchTasks = createAsyncThunk<TaskApi[]>(
     'tasks/fetchTasks',
     async  ()=> {
         const response = await axiosApi.get<TaskApi[]>('/tasks');
-        console.log(response.data)
         return response.data;
     });
 

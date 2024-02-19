@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {fetchTasks} from "./tasksThunk.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {useNavigate} from "react-router-dom";
+import TaskItem from "./TaskItem.tsx";
 
 const Tasks = () => {
     const dispatch = useAppDispatch();
@@ -13,10 +14,9 @@ const Tasks = () => {
     const tasks = useSelector(selectTasks);
     const fetchingTasks = useSelector(selectTasksFetching)
     const error = useSelector(selectTasksError);
-    console.log(tasks, token)
     useEffect(() => {
-        if(!token){
-           return  navigation('/users');
+        if (!token) {
+            return navigation('/users');
         }
         dispatch(fetchTasks());
     }, [dispatch]);
@@ -33,13 +33,9 @@ const Tasks = () => {
             <h2>Tasks List</h2>
             <ul>
                 {tasks.map((task) => (
-                    <li key={task.id}>
-                        <div>
-                            <strong>{task.title}</strong>
-                            <p>{task.description}</p>
-                            <span>Status: {task.status}</span>
-                        </div>
-                    </li>
+                    <TaskItem
+                        key={task.id}
+                        task={task}/>
                 ))}
             </ul>
         </>
