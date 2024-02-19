@@ -1,8 +1,9 @@
 import {useSelector} from 'react-redux';
-import React, {useState} from "react";
-import {createTask, deleteTask, editTask} from "./tasksThunk.ts";
+import React, {useEffect, useState} from "react";
+import {createTask, deleteTask} from "./tasksThunk.ts";
 import {selectToken} from "../users/usersSlice.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
+import {useParams} from "react-router-dom";
 
 interface TaskFormProps {
     taskId?: string;
@@ -11,12 +12,33 @@ interface TaskFormProps {
 const TaskForm: React.FC<TaskFormProps> = ({ taskId }) => {
     const dispatch = useAppDispatch();
     const token = useSelector(selectToken);
+    const { id } = useParams();
     const [formData, setFormData] = useState(
-        { title: '',
-                    description: '',
-                    status: 'new'
+        {
+            title: '',
+            description: '',
+            status: 'new'
         });
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (id && token) {
+                    // const taskData = await dispatch(fetchTaskById(id));
+                    // setFormData({
+                    //     id: id,
+                    //     user: token.toString(),
+                    //     title: taskData.payload.,
+                    //     description: taskData.description,
+                    //     status: taskData.status,
+                    // });
+                }
+            } catch (error) {
+                console.error('Error fetching task:', error);
+            }
+        };
 
+        fetchData();
+    }, [dispatch, taskId]);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -26,7 +48,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ taskId }) => {
         }
 
         if (taskId) {
-            dispatch(editTask({ taskId, taskData: formData }));
+            // dispatch(editTask(formData));
         } else {
             dispatch(createTask(formData));
         }
